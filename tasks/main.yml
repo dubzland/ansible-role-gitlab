@@ -97,6 +97,6 @@
     dest: /etc/gitlab/gitlab.rb
     regexp: "^gitlab_rails.*backup_keep_time"
     line: "gitlab_rails['backup_keep_time'] = 604800"
-    tags:
-      - gitlab
-      - backup
+  tags:
+    - gitlab
+    - backup
