@@ -1,5 +1,5 @@
 ---
-_dubzland_gitlab_version: 11.7.5-ee.0
+_dubzland_gitlab_version: 12.3.5-ee.0
 _dubzland_gitlab_prerequisites:
   - postfix
   - curl
