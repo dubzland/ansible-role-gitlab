@@ -1,12 +1,7 @@
 ---
 - name: ensure gitlab dependencies are installed
   apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - postfix
-    - curl
-    - ca-certificates
+    name: "{{ _dubzland_gitlab_prerequisites }}"
   tags:
     - gitlab
 
