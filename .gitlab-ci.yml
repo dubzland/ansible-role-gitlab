@@ -13,4 +13,4 @@ test:
   stage: test
   script:
     - docker build -t dubzland-gitlab -f tests/Dockerfile .
-    - docker run dubzland-gitlab /usr/src/dubzland-dhcpd/tests/run_tests.sh
+    - docker run dubzland-gitlab /usr/src/dubzland-gitlab/tests/run_tests.sh
