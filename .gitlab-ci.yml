@@ -1,0 +1,16 @@
+image: docker:19.03.1
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+services:
+  - docker:19.03.1-dind
+
+before_script:
+  - docker info
+
+test:
+  stage: test
+  script:
+    - docker build -t dubzland-gitlab -f tests/Dockerfile .
+    - docker run dubzland-gitlab /usr/src/dubzland-dhcpd/tests/run_tests.sh
