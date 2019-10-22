@@ -1,0 +1,2 @@
+---
+dubzland_gitlab_version: "{{ _dubzland_gitlab_version }}"

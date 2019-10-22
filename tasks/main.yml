@@ -1,0 +1,68 @@
+---
+- name: ensure gitlab dependencies are installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - postfix
+    - curl
+    - ca-certificates
+  tags:
+    - gitlab
+
+- name: check to see if gitlab is installed
+  stat:
+    path: /usr/bin/gitlab-ci
+  register: gitlab_exec
+  tags:
+    - gitlab
+
+- name: ensure gitlab repo installation script is present
+  get_url:
+    url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+    dest: /tmp/gitlab_repo_install.sh
+  when: gitlab_exec.stat.exists == False
+  tags:
+    - gitlab
+
+- name: ensure the gitlab repo is installed
+  command: bash /tmp/gitlab_repo_install.sh
+  when: gitlab_exec.stat.exists == False
+  tags:
+    - gitlab
+
+- name: ensure gitlab is installed
+  apt:
+    name: "gitlab-ee={{ dubzland_gitlab_version }}"
+    state: present
+  when: gitlab_exec.stat.exists == False
+  tags:
+    - gitlab
+
+- name: ensure gitlab is configured
+  command: gitlab-ctl reconfigure
+  args:
+    creates: /var/opt/gitlab/bootstrapped
+  failed_when: False
+  tags:
+    - gitlab
+
+- name: ensure daily backups are configured
+  template:
+    src: etc/cron.daily/gitlab.j2
+    dest: /etc/cron.daily/gitlab
+    owner: root
+    group: root
+    mode: 0700
+  tags:
+    - gitlab
+    - backup
+
+- name: ensure backup retention is set to 1 week
+  lineinfile:
+    dest: /etc/gitlab/gitlab.rb
+    regexp: "^# gitlab_rails.*backup_keep_time"
+    line: "gitlab_rails['backup_keep_time'] = 604800"
+    tags:
+      - gitlab
+      - backup
