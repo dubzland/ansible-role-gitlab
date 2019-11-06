@@ -1,0 +1,28 @@
+---
+- name: ensure GitLab SSL directory exists
+  file:
+    path: /etc/gitlab/ssl
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when: dubzland_gitlab_create_self_signed_cert | bool
+
+- name: ensure self-signed GitLab certificate exists
+  command: >
+    openssl req -new -nodes -x509 -subj "{{ dubzland_gitlab_self_signed_cert_subject }}"
+    -days 3650 -keyout {{ dubzland_gitlab_nginx_ssl_certificate_key }}
+    -out {{ dubzland_gitlab_nginx_ssl_certificate }}
+    -extensions v3_ca
+  args:
+    creates: "{{ dubzland_gitlab_nginx_ssl_certificate }}"
+  when: dubzland_gitlab_create_self_signed_cert | bool
+
+- name: ensure GitLab is configured
+  template:
+    src: "{{ dubzland_gitlab_configuration_template }}"
+    dest: "/etc/gitlab/gitlab.rb"
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart gitlab

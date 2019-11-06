@@ -1,2 +1,25 @@
 ---
-dubzland_gitlab_version: "{{ _dubzland_gitlab_version }}"
+dubzland_gitlab_edition: gitlab-ee
+dubzland_gitlab_version: ''
+
+dubzland_gitlab_configuration_template: "etc/gitlab/gitlab.rb.j2"
+
+dubzland_gitlab_external_url: 'https://gitlab/'
+dubzland_gitlab_time_zone: 'UTC'
+
+dubzland_gitlab_email_enabled: "false"
+dubzland_gitlab_email_from: "gitlab@example.com"
+dubzland_gitlab_email_display_name: "GitLab"
+dubzland_gitlab_email_reply_to: "gitlab@example.com"
+
+dubzland_gitlab_default_theme: 1
+
+dubzland_gitlab_nginx_redirect_http_to_https: "true"
+dubzland_gitlab_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+dubzland_gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+# dubzland_gitlab_nginx_listen_port: 80
+# dubzland_gitlab_nginx_listen_https: "false"
+dubzland_gitlab_create_self_signed_cert: "true"
+dubzland_gitlab_self_signed_cert_subject: "/C=US/ST=Mississippi/L=Hernando/O=Tech/CN=gitlab"
+
+dubzland_gitlab_backup_keep_time: 604800
