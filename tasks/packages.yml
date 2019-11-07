@@ -1,18 +1,14 @@
 ---
+- name: ensure packages incompatible with GitLab are not present
+  package:
+    name: "{{ dubzland_gitlab_conflicting_packages }}"
+    state: absent
+  tags:
+    - gitlab
+
 - name: ensure GitLab dependencies are installed
   package:
     name: "{{ dubzland_gitlab_prerequisites }}"
     state: present
-  tags:
-    - gitlab
-
-- include_tasks: packages-Debian.yml
-  when: ansible_os_family == 'Debian'
-
-- name: ensure GitLab is installed
-  apt:
-    name: "{{ dubzland_gitlab_package_name | default(dubzland_gitlab_edition) }}"
-    state: present
-  notify: start GitLab omnibus
   tags:
     - gitlab

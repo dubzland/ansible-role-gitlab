@@ -1,5 +1,9 @@
 ---
-dubzland_gitlab_prerequisites:
-  - postfix
-  - curl
-  - ca-certificates
+dubzland_gitlab_prerequisites: []
+
+dubzland_gitlab_conflicting_packages:
+  - git
+  - git-core
+  - ruby
+  - ruby1.8
+  - nodejs
