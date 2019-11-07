@@ -1,5 +1,6 @@
 ---
-dubzland_gitlab_prerequisites: []
+dubzland_gitlab_prerequisites:
+  - golang
 
 dubzland_gitlab_conflicting_packages:
   - git
