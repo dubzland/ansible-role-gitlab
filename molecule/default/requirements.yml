@@ -1,4 +1,4 @@
-- src: git@gitlab01.dev.local.dubzland.net:jdubz/dubzland-git.git
+- src: https://git.dubzland.net/jdubz/dubzland-git
   scm: git
-- src: git@gitlab01.dev.local.dubzland.net:jdubz/dubzland-ruby.git
+- src: https://git.dubzland.net/jdubz/dubzland-ruby
   scm: git
