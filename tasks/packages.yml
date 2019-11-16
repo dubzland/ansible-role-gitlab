@@ -6,11 +6,36 @@
   tags:
     - gitlab
 
-- include_tasks: packages-Debian.yml
-  when: ansible_os_family == 'Debian'
+- when: ansible_os_family == 'Debian'
+  block:
+    - name: check to see if GitLab is installed
+      stat:
+        path: /usr/bin/gitlab-ctl
+      register: gitlab_exec
+      tags:
+        - gitlab
+
+    - name: ensure GitLab repo installation script is present
+      get_url:
+        url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+        dest: /tmp/gitlab_repo_install.sh
+      when: not gitlab_exec.stat.exists
+      tags:
+        - gitlab
+
+    - name: ensure the GitLab repo is installed
+      command: bash /tmp/gitlab_repo_install.sh
+      when: not gitlab_exec.stat.exists
+      tags:
+        - gitlab
+
+    - name: set the GitLab package name
+      set_fact:
+        dubzland_gitlab_package_name: "{{ dubzland_gitlab_edition }}={{ dubzland_gitlab_version }}"
+      when: dubzland_gitlab_version | length > 0
 
 - name: ensure GitLab is installed
-  apt:
+  package:
     name: "{{ dubzland_gitlab_package_name | default(dubzland_gitlab_edition) }}"
     state: present
   notify: start GitLab omnibus
