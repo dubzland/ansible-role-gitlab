@@ -2,7 +2,7 @@
 - name: start GitLab omnibus
   shell: "/opt/gitlab/embedded/bin/runsvdir-start &"
 
-- name: restart gitlab
+- name: restart GitLab
   command: gitlab-ctl reconfigure
   register: gitlab_reconfigure
   failed_when: gitlab_reconfigure.rc != 0
