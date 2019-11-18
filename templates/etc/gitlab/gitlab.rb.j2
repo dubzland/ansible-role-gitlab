@@ -853,11 +853,7 @@ nginx['ssl_protocols'] = "{{ dubzland_gitlab_nginx_ssl_protocols }}"
 ##! **Default according to https://nginx.org/en/docs/http/ngx_http_ssl_module.html**
 # nginx['ssl_session_timeout'] = "5m"
 
-{% if dubzland_gitlab_nginx_ssl_dhparams is defined %}
-nginx['ssl_dhparam'] = "{{ dubzland_gitlab_nginx_ssl_dhparams }}"
-{% else %}
-# nginx['ssl_dhparam'] = nil # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
-{% endif %}
+nginx['ssl_dhparam'] = "/etc/gitlab/ssl/dhparam.pem"
 # nginx['listen_addresses'] = ['*', '[::]']
 
 ##! **Defaults to forcing web browsers to always communicate using only HTTPS**

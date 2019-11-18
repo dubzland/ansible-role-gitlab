@@ -6,7 +6,11 @@
     owner: root
     group: root
     mode: 0700
-  when: dubzland_gitlab_create_self_signed_cert | bool
+
+- name: ensure the DH params are generated
+  command: openssl dhparam -out /etc/gitlab/ssl/dhparam.pem 2048
+  args:
+    creates: /etc/gitlab/ssl/dhparam.pem
 
 - name: ensure self-signed GitLab certificate exists
   command: >

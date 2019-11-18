@@ -111,14 +111,6 @@ dubzland_gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
 SSL Certificate/key to use for `https://` traffic.
 
-### dubzland_gitlab_nginx_ssl_dhparams
-
-```yaml
-# dubzland_gitlab_nginx_ssl_dhparams: "/etc/gitlab/ssl/dhparams.pem"
-```
-
-Diffie-Hellman key key used for encryption.
-
 ### dubzland_gitlab_nginx_ssl_protocols
 
 ```yaml
