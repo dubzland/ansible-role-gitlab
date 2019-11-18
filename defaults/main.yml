@@ -22,4 +22,5 @@ dubzland_gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 dubzland_gitlab_create_self_signed_cert: "true"
 dubzland_gitlab_self_signed_cert_subject: "/C=US/ST=Mississippi/L=Hernando/O=Tech/CN=gitlab"
 
+dubzland_gitlab_backups_enabled: True
 dubzland_gitlab_backup_keep_time: 604800

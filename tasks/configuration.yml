@@ -26,3 +26,15 @@
     group: root
     mode: 0600
   notify: restart GitLab
+
+- name: ensure daily backups are configured
+  template:
+    src: etc/cron.daily/gitlab.j2
+    dest: /etc/cron.daily/gitlab
+    owner: root
+    group: root
+    mode: 0700
+  when: dubzland_gitlab_backups_enabled | bool
+  tags:
+    - gitlab
+    - backup
