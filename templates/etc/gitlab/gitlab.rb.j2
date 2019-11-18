@@ -845,7 +845,7 @@ nginx['ssl_certificate_key'] = "{{ dubzland_gitlab_nginx_ssl_certificate_key }}"
 
 ##! **Recommended by: https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html
 ##!                   https://cipherli.st/**
-# nginx['ssl_protocols'] = "TLSv1.1 TLSv1.2"
+nginx['ssl_protocols'] = "{{ dubzland_gitlab_nginx_ssl_protocols }}"
 
 ##! **Recommended in: https://nginx.org/en/docs/http/ngx_http_ssl_module.html**
 # nginx['ssl_session_cache'] = "builtin:1000  shared:SSL:10m"
@@ -853,7 +853,11 @@ nginx['ssl_certificate_key'] = "{{ dubzland_gitlab_nginx_ssl_certificate_key }}"
 ##! **Default according to https://nginx.org/en/docs/http/ngx_http_ssl_module.html**
 # nginx['ssl_session_timeout'] = "5m"
 
+{% if dubzland_gitlab_nginx_ssl_dhparams is defined %}
+nginx['ssl_dhparam'] = "{{ dubzland_gitlab_nginx_ssl_dhparams }}"
+{% else %}
 # nginx['ssl_dhparam'] = nil # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
+{% endif %}
 # nginx['listen_addresses'] = ['*', '[::]']
 
 ##! **Defaults to forcing web browsers to always communicate using only HTTPS**

@@ -17,6 +17,8 @@ dubzland_gitlab_default_theme: 1
 dubzland_gitlab_nginx_redirect_http_to_https: "true"
 dubzland_gitlab_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 dubzland_gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+# dubzland_gitlab_nginx_ssl_dhparams: "/etc/gitlab/ssl/dhparams.pem"
+dubzland_gitlab_nginx_ssl_protocols: "TLSv1.1 TLSv1.2"
 # dubzland_gitlab_nginx_listen_port: 80
 # dubzland_gitlab_nginx_listen_https: "false"
 dubzland_gitlab_create_self_signed_cert: "true"
