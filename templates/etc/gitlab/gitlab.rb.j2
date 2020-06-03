@@ -443,7 +443,7 @@ gitlab_rails['smtp_domain'] = "{{ dubzland_gitlab_smtp_domain }}"
 {% if dubzland_gitlab_smtp_authentication | length > 0 %}
 gitlab_rails['smtp_authentication'] = {{ dubzland_gitlab_smtp_authentication }}
 {% endif %}
-gitlab_rails['smtp_enable_starttls_auto'] = {{ dubzland_gitlab_smtp_enable_startls_auto }}
+gitlab_rails['smtp_enable_starttls_auto'] = {{ dubzland_gitlab_smtp_enable_starttls_auto }}
 gitlab_rails['smtp_tls'] = {{ dubzland_gitlab_smtp_tls }}
 {% else %}
 # gitlab_rails['smtp_enable'] = true
