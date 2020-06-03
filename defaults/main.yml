@@ -12,6 +12,16 @@ dubzland_gitlab_email_from: "gitlab@example.com"
 dubzland_gitlab_email_display_name: "GitLab"
 dubzland_gitlab_email_reply_to: "gitlab@example.com"
 
+dubzland_gitlab_smtp_enable: False
+dubzland_gitlab_smtp_address: 'mail.example.com'
+dubzland_gitlab_smtp_port: 465
+dubzland_gitlab_smtp_username: 'smtp_user'
+dubzland_gitlab_smtp_password: 'smtp_password'
+dubzland_gitlab_smtp_domain: 'example.com'
+dubzland_gitlab_smtp_authentication: "'login'"
+dubzland_gitlab_smtp_enable_starttls_auto: 'true'
+dubzland_gitlab_smtp_tls: 'false'
+
 dubzland_gitlab_default_theme: 1
 
 dubzland_gitlab_nginx_redirect_http_to_https: "true"
