@@ -4,6 +4,9 @@ image: jdubz/ci-docker-ansible:latest
 services:
   - docker:19.03.1-dind
 
+variables:
+  BASH_ENV: /root/.bashrc
+
 molecule:
   stage: test
   script:
