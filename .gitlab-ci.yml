@@ -7,5 +7,7 @@ services:
 molecule:
   stage: test
   script:
+    - pyenv local 3.7.7
+    - pip3 install ansible ansible-lint
     - ansible --version
     - molecule test
