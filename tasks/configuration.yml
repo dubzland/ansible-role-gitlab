@@ -14,7 +14,8 @@
 
 - name: ensure self-signed GitLab certificate exists
   command: >
-    openssl req -new -nodes -x509 -subj "{{ dubzland_gitlab_self_signed_cert_subject }}"
+    openssl req -new -nodes -x509
+    -subj "{{ dubzland_gitlab_self_signed_cert_subject }}"
     -days 3650 -keyout {{ dubzland_gitlab_nginx_ssl_certificate_key }}
     -out {{ dubzland_gitlab_nginx_ssl_certificate }}
     -extensions v3_ca

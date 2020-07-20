@@ -17,7 +17,7 @@
 
     - name: ensure GitLab repo installation script is present
       get_url:
-        url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+        url: "{{ dubzland_gitlab_install_script }}"
         dest: /tmp/gitlab_repo_install.sh
       when: not gitlab_exec.stat.exists
       tags:
@@ -31,11 +31,13 @@
 
     - name: set the GitLab package name
       set_fact:
+        # yamllint disable-line rule:line-length
         dubzland_gitlab_package_name: "{{ dubzland_gitlab_edition }}={{ dubzland_gitlab_version }}"
       when: dubzland_gitlab_version | length > 0
 
 - name: ensure GitLab is installed
   package:
+    # yamllint disable-line rule:line-length
     name: "{{ dubzland_gitlab_package_name | default(dubzland_gitlab_edition) }}"
     state: present
   notify: start GitLab omnibus

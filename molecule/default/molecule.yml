@@ -3,14 +3,12 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
 platforms:
   - name: dubzland-gitlab-debian9
     image: jdubz/docker-ansible-debian9:latest
-    override_command: False
-    pre_build_image: True
-    privileged: True
+    override_command: false
+    pre_build_image: true
+    privileged: true
     tmpfs:
       - /run
       - /run/lock
@@ -18,9 +16,9 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: dubzland-gitlab-debian10
     image: jdubz/docker-ansible-debian10:latest
-    override_command: False
-    pre_build_image: True
-    privileged: True
+    override_command: false
+    pre_build_image: true
+    privileged: true
     tmpfs:
       - /run
       - /run/lock
@@ -29,9 +27,9 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
 verifier:
   name: testinfra
-  lint:
-    name: flake8
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
