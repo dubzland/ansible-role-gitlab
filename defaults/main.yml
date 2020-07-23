@@ -28,10 +28,10 @@ dubzland_gitlab_nginx_redirect_http_to_https: "true"
 dubzland_gitlab_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 dubzland_gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 dubzland_gitlab_nginx_ssl_protocols: "TLSv1.1 TLSv1.2"
-# dubzland_gitlab_nginx_listen_port: 80
-# dubzland_gitlab_nginx_listen_https: "false"
 dubzland_gitlab_create_self_signed_cert: "true"
-dubzland_gitlab_self_signed_cert_subject: "/C=US/ST=Mississippi/L=Hernando/O=Tech/CN=gitlab"  # noqa 204
+
+# yamllint disable-line rule:line-length
+dubzland_gitlab_self_signed_cert_subject: "/C=US/ST=Mississippi/L=Hernando/O=Tech/CN=gitlab"
 
 dubzland_gitlab_backups_enabled: true
 dubzland_gitlab_backup_keep_time: 604800

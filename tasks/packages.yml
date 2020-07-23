@@ -12,6 +12,7 @@
       register: gitlab_exec
 
     - name: get the currently installed GitLab version
+      # yamllint disable-line rule:line-length
       shell: "gitlab-rake gitlab:env:info | grep -A 1 GitLab\ information | grep Version | tr -s ' ' | cut -d' ' -f 2"
       register: _current_gitlab_version
       when: gitlab_exec.stat.exists
@@ -20,9 +21,12 @@
       debug:
         var: _current_gitlab_version
 
-    - name: set the GitLab package url
-      set_fact:
-        dubzland_gitlab_download_url: "https://packages.gitlab.com/gitlab/gitlab-ee/packages/{{ ansible_distribution }}/{{ ansible_distribution_release }}/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb/download.deb"
+    - name: ensure we are not downgrading
+      fail:
+        # yamllint disable-line rule:line-length
+        msg: "Cannot downgrade Gitlab (current: {{ _current_gitlab_version.stdout }}, install: {{ dubzland_gitlab_version }})"
+      # yamllint disable-line rule:line-length
+      when: _current_gitlab_version.stdout is version(dubzland_gitlab_version, operator='lt', strict=True)
 
     - name: ensure the correct package is downloaded
       get_url:
