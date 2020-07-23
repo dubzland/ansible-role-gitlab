@@ -26,7 +26,7 @@
         # yamllint disable-line rule:line-length
         msg: "Cannot downgrade Gitlab (current: {{ _current_gitlab_version.stdout }}, install: {{ dubzland_gitlab_version }})"
       # yamllint disable-line rule:line-length
-      when: (not _current_gitlab_version is not skipped) and (_current_gitlab_version.stdout is version(dubzland_gitlab_version, operator='lt', strict=True))
+      when: (_current_gitlab_version is not skipped) and (_current_gitlab_version.stdout is version(dubzland_gitlab_version, operator='lt', strict=True))
 
     - name: ensure the correct package is downloaded
       get_url:
