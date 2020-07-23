@@ -3,8 +3,6 @@
   package:
     name: "{{ dubzland_gitlab_prerequisites }}"
     state: present
-  tags:
-    - gitlab
 
 - when: ansible_os_family == 'Debian'
   block:
@@ -12,34 +10,27 @@
       stat:
         path: /usr/bin/gitlab-ctl
       register: gitlab_exec
-      tags:
-        - gitlab
 
-    - name: ensure GitLab repo installation script is present
-      get_url:
-        url: "{{ dubzland_gitlab_install_script }}"
-        dest: /tmp/gitlab_repo_install.sh
-      when: not gitlab_exec.stat.exists
-      tags:
-        - gitlab
+    - name: get the currently installed GitLab version
+      shell: "gitlab-rake gitlab:env:info | grep -A 1 GitLab\ information | grep Version | tr -s ' ' | cut -d' ' -f 2"
+      register: _current_gitlab_version
+      when: gitlab_exec.stat.exists
 
-    - name: ensure the GitLab repo is installed
-      command: bash /tmp/gitlab_repo_install.sh
-      when: not gitlab_exec.stat.exists
-      tags:
-        - gitlab
+    - name: dump the currently install GitLab version
+      debug:
+        var: _current_gitlab_version
 
-    - name: set the GitLab package name
+    - name: set the GitLab package url
       set_fact:
-        # yamllint disable-line rule:line-length
-        dubzland_gitlab_package_name: "{{ dubzland_gitlab_edition }}={{ dubzland_gitlab_version }}"
-      when: dubzland_gitlab_version | length > 0
+        dubzland_gitlab_download_url: "https://packages.gitlab.com/gitlab/gitlab-ee/packages/{{ ansible_distribution }}/{{ ansible_distribution_release }}/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb/download.deb"
 
-- name: ensure GitLab is installed
-  package:
-    # yamllint disable-line rule:line-length
-    name: "{{ dubzland_gitlab_package_name | default(dubzland_gitlab_edition) }}"
-    state: present
-  notify: start GitLab omnibus
-  tags:
-    - gitlab
+    - name: ensure the correct package is downloaded
+      get_url:
+        url: "{{ dubzland_gitlab_download_url }}"
+        dest: /tmp/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb
+
+    - name: ensure GitLab is installed
+      apt:
+        deb: "/tmp/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb"
+      when: dubzland_gitlab_version | length > 0
+      notify: start GitLab omnibus

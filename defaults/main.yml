@@ -1,6 +1,6 @@
 ---
 dubzland_gitlab_edition: gitlab-ee
-dubzland_gitlab_version: ''
+dubzland_gitlab_version: '13.1.4'
 
 dubzland_gitlab_configuration_template: "etc/gitlab/gitlab.rb.j2"
 

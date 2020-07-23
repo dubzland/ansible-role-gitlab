@@ -13,6 +13,8 @@ platforms:
       - /run/lock
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    env:
+      LC_ALL: en_US.UTF-8
   - name: dubzland-gitlab-debian10
     image: jdubz/docker-ci-debian:buster-slim
     pre_build_image: true
@@ -23,6 +25,8 @@ platforms:
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    env:
+      LC_ALL: en_US.UTF-8
   - name: dubzland-gitlab-ubuntu16-04
     image: jdubz/docker-ci-ubuntu:xenial
     pre_build_image: true
@@ -33,6 +37,8 @@ platforms:
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    env:
+      LC_ALL: en_US.UTF-8
   - name: dubzland-gitlab-ubuntu18-04
     image: jdubz/docker-ci-ubuntu:bionic
     pre_build_image: true
@@ -43,35 +49,8 @@ platforms:
       - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: dubzland-gitlab-ubuntu19-10
-    image: jdubz/docker-ci-ubuntu:eoan
-    pre_build_image: true
-    privileged: true
-    tmpfs:
-      - /run
-      - /run/lock
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: dubzland-gitlab-ubuntu20-04
-    image: jdubz/docker-ci-ubuntu:focal
-    pre_build_image: true
-    privileged: true
-    tmpfs:
-      - /run
-      - /run/lock
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: dubzland-gitlab-ubuntu20-10
-    image: jdubz/docker-ci-ubuntu:groovy
-    pre_build_image: true
-    privileged: true
-    tmpfs:
-      - /run
-      - /run/lock
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    env:
+      LC_ALL: en_US.UTF-8
 provisioner:
   name: ansible
 verifier:
