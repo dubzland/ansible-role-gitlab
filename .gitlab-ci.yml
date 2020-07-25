@@ -7,7 +7,7 @@ services:
 variables:
   BASH_ENV: /root/.bashrc
 
-molecule:
+.molecule:
   stage: test
   cache:
     paths:
@@ -17,3 +17,27 @@ molecule:
     - pip3 install tox
   script:
     - tox
+
+debian9:
+  extends: .molecule
+  variables:
+    MOLECULE_PLATFORM: debian-stretch
+    MOLECULE_IMAGE: debian:stretch-slim
+
+debian10:
+  extends: .molecule
+  variables:
+    MOLECULE_PLATFORM: debian-buster
+    MOLEDULE_IMAGE: debian:buster-slim
+
+ubuntu1604:
+  extends: .molecule
+  variables:
+    MOLECULE_PLATFORM: ubuntu-xenial
+    MOLEDULE_IMAGE: ubuntu:xenial
+
+ubuntu1804:
+  extends: .molecule
+  variables:
+    MOLECULE_PLATFORM: ubuntu-bionic
+    MOLEDULE_IMAGE: ubuntu:bionic
