@@ -4,49 +4,13 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: dubzland-gitlab-debian9
-    image: jdubz/docker-ci-debian:stretch-slim
+  - name: "${MOLECULE_PLATFORM:-debian9}"
+    image: "jdubz/docker-ci-${MOLECULE_IMAGE:-debian:stretch-slim}"
     pre_build_image: true
     privileged: true
     tmpfs:
       - /run
       - /run/lock
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    env:
-      LC_ALL: en_US.UTF-8
-  - name: dubzland-gitlab-debian10
-    image: jdubz/docker-ci-debian:buster-slim
-    pre_build_image: true
-    privileged: true
-    tmpfs:
-      - /run
-      - /run/lock
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    env:
-      LC_ALL: en_US.UTF-8
-  - name: dubzland-gitlab-ubuntu16-04
-    image: jdubz/docker-ci-ubuntu:xenial
-    pre_build_image: true
-    privileged: true
-    tmpfs:
-      - /run
-      - /run/lock
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    env:
-      LC_ALL: en_US.UTF-8
-  - name: dubzland-gitlab-ubuntu18-04
-    image: jdubz/docker-ci-ubuntu:bionic
-    pre_build_image: true
-    privileged: true
-    tmpfs:
-      - /run
-      - /run/lock
-      - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     env:
