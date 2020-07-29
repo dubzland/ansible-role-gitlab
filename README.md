@@ -1,7 +1,7 @@
 # Ansible Role: GitLab
 [![Gitlab pipeline status (self-hosted)](https://img.shields.io/gitlab/pipeline/dubzland/ansible-role-gitlab/main?gitlab_url=https%3A%2F%2Fgit.dubzland.net)](https://git.dubzland.net/dubzland/ansible-role-gitlab/pipelines)
-[![Ansible role downloads](https://img.shields.io/ansible/role/d/44708)](https://galaxy.ansible.com/dubzland/gitlab)
-[![Ansible Quality Score](https://img.shields.io/ansible/quality/44708)](https://galaxy.ansible.com/dubzland/gitlab)
+[![Ansible role downloads](https://img.shields.io/ansible/role/d/49952)](https://galaxy.ansible.com/dubzland/gitlab)
+[![Ansible Quality Score](https://img.shields.io/ansible/quality/49952)](https://galaxy.ansible.com/dubzland/gitlab)
 [![Liberapay patrons](https://img.shields.io/liberapay/patrons/jdubz)](https://liberapay.com/jdubz/donate)
 [![Liberapay receiving](https://img.shields.io/liberapay/receives/jdubz)](https://liberapay.com/jdubz/donate)
 
@@ -27,11 +27,10 @@ Edition of GitLab to install (ee/ce).
 ### dubzland_gitlab_version
 
 ```yaml
-dubzland_gitlab_version: ""
+dubzland_gitlab_version: "13.1.4"
 ```
 
-Specific version of GitLab to install.  Must match the platform's package
-manager's version format (ie. for Debian: `12.3.5-ee.0`).
+Specific version of GitLab to install.
 
 ### dubzland_gitlab_configuration_template
 

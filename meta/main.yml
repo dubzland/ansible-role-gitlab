@@ -4,7 +4,7 @@ dependencies: []
 galaxy_info:
   role_name: gitlab
   author: t3hpr1m3
-  description: GitLab for Debian
+  description: GitLab EE installation for Linux.
   company: Cedar House Labs
   license: MIT
   min_ansible_version: 2.2
