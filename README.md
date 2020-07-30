@@ -1,11 +1,12 @@
 # Ansible Role: GitLab
 [![Gitlab pipeline status (self-hosted)](https://img.shields.io/gitlab/pipeline/dubzland/ansible-role-gitlab/main?gitlab_url=https%3A%2F%2Fgit.dubzland.net)](https://git.dubzland.net/dubzland/ansible-role-gitlab/pipelines)
+[![Ansible role](https://img.shields.io/ansible/role/49952)](https://galaxy.ansible.com/dubzland/gitlab)
 [![Ansible role downloads](https://img.shields.io/ansible/role/d/49952)](https://galaxy.ansible.com/dubzland/gitlab)
 [![Ansible Quality Score](https://img.shields.io/ansible/quality/49952)](https://galaxy.ansible.com/dubzland/gitlab)
 [![Liberapay patrons](https://img.shields.io/liberapay/patrons/jdubz)](https://liberapay.com/jdubz/donate)
 [![Liberapay receiving](https://img.shields.io/liberapay/receives/jdubz)](https://liberapay.com/jdubz/donate)
 
-Installs and configures the GitLab CE DevOps platform.
+Installs and configures the GitLab EE DevOps platform.
 
 ## Requirements
 
@@ -182,6 +183,8 @@ None.
 - hosts: servers
   roles:
     - role: dubzland.gitlab
+      vars:
+        dubzland_gitlab_external_url: 'https://git.example.com'
 ```
 
 ## License
