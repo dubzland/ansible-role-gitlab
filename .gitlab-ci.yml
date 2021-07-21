@@ -1,20 +1,19 @@
 ---
-image: jdubz/ci-docker-ansible:latest
+image:
+  name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/jdubz/molecule-testing:1.0.0
 
 services:
-  - docker:19.03.1-dind
-
-variables:
-  BASH_ENV: /root/.bashrc
+  - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:19.03.1-dind
+    alias: docker
 
 .molecule:
   stage: test
   cache:
+    key:
+      files:
+        - .tool-versions
     paths:
       - .tox
-  before_script:
-    - pyenv local 2.7.18 3.6.11 3.7.7 3.8.3
-    - pip3 install tox
   script:
     - tox
 
@@ -30,14 +29,14 @@ debian10:
     MOLECULE_PLATFORM: debian-buster
     MOLEDULE_IMAGE: debian:buster-slim
 
-ubuntu1604:
-  extends: .molecule
-  variables:
-    MOLECULE_PLATFORM: ubuntu-xenial
-    MOLEDULE_IMAGE: ubuntu:xenial
-
 ubuntu1804:
   extends: .molecule
   variables:
     MOLECULE_PLATFORM: ubuntu-bionic
     MOLEDULE_IMAGE: ubuntu:bionic
+
+ubuntu2004:
+  extends: .molecule
+  variables:
+    MOLECULE_PLATFORM: ubuntu-focal
+    MOLEDULE_IMAGE: ubuntu:focal

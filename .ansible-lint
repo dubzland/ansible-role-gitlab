@@ -1,0 +1,4 @@
+exclude_paths:
+  - .cache/
+  - .tox/
+  - docker-compose.yml

@@ -1,4 +1,6 @@
 ---
 extends: default
 ignore: |
+  .cache/
   .tox/
+  docker-compose.yml

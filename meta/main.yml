@@ -5,9 +5,12 @@ galaxy_info:
   role_name: gitlab
   author: t3hpr1m3
   description: GitLab EE installation for Linux.
-  company: Cedar House Labs
+  issue_tracker_url: >-
+    http://git.dubzland.net/dubzland/ansible-role-gitlab/issues
   license: MIT
+
   min_ansible_version: 2.2
+
   platforms:
     - name: Debian
       versions:
@@ -15,7 +18,6 @@ galaxy_info:
         - buster
     - name: Ubuntu
       versions:
-        - xenial
         - bionic
         - focal
 
