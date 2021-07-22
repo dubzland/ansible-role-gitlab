@@ -8,29 +8,29 @@
     mode: 0700
 
 - name: ensure the DH params are generated
-  command: openssl dhparam -out /etc/gitlab/ssl/dhparam.pem 2048
+  command: "openssl dhparam -out {{ gitlab_nginx_ssl_dhparam }} 2048"
   args:
-    creates: /etc/gitlab/ssl/dhparam.pem
+    creates: "{{ gitlab_nginx_ssl_dhparam }}"
 
 - name: ensure self-signed GitLab certificate exists
   command: >
     openssl req -new -nodes -x509
-    -subj "{{ dubzland_gitlab_self_signed_cert_subject }}"
-    -days 3650 -keyout {{ dubzland_gitlab_nginx_ssl_certificate_key }}
-    -out {{ dubzland_gitlab_nginx_ssl_certificate }}
+    -subj "{{ gitlab_nginx_self_signed_cert_subject }}"
+    -days 3650 -keyout {{ gitlab_nginx_ssl_certificate_key }}
+    -out {{ gitlab_nginx_ssl_certificate }}
     -extensions v3_ca
   args:
-    creates: "{{ dubzland_gitlab_nginx_ssl_certificate }}"
-  when: dubzland_gitlab_create_self_signed_cert | bool
+    creates: "{{ gitlab_nginx_ssl_certificate }}"
+  when: gitlab_nginx_create_self_signed_cert | bool
 
 - name: ensure GitLab is configured
   template:
-    src: "{{ dubzland_gitlab_configuration_template }}"
+    src: "{{ gitlab_configuration_template }}"
     dest: "/etc/gitlab/gitlab.rb"
     owner: root
     group: root
     mode: 0600
-  notify: restart GitLab
+  notify: reconfigure GitLab
 
 - name: ensure daily backups are configured
   template:
@@ -39,7 +39,7 @@
     owner: root
     group: root
     mode: 0700
-  when: dubzland_gitlab_backups_enabled | bool
+  when: gitlab_backups_enabled | bool
   tags:
     - gitlab
     - backup

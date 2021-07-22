@@ -37,7 +37,6 @@ gitlab_rails['smtp_ca_path'] = '{{ gitlab_smtp_ca_path }}'
 {% if gitlab_smtp_ca_file %}
 gitlab_rails['smtp_ca_file'] = '{{ gitlab_smtp_ca_file }}'
 {% endif %}"
-{% endif %}
 
 {{ 'Backup configuration' | comment }}
 gitlab_rails['manage_backup_path'] = {{ gitlab_manage_backup_path | string | lower }}
@@ -46,35 +45,20 @@ gitlab_rails['backup_archive_permissions'] = {{ gitlab_backup_archive_permission
 gitlab_rails['backup_pg_schema'] = '{{ gitlab_backup_pg_schema }}'
 gitlab_rails['backup_keep_time'] = {{ gitlab_backup_keep_time }}
 
-{{ 'Registry configuration' | comment }}
+{{ 'Registry settings' | comment }}
 registry['enable'] = {{ gitlab_registry_enabled | string | lower }}
 {% if gitlab_registry_enabled %}
-{% if gitlab_registry_external_url %}
 registry_external_url '{{ gitlab_registry_external_url }}'
-{% endif %}
-{% if gitlab_registry_listen_port %}
 registry_nginx['listen_port'] = {{ gitlab_registry_listen_port }}
-{% endif %}
 registry_nginx['listen_https'] = {{ gitlab_registry_listen_https | string | lower }}
 {% endif %}
 
-{{ 'Nginx configuration' | comment }}
-nginx['enable'] = {{ gitlab_nginx_enable | string | lower }}
-{% if gitlab_nginx_enable %}
-{%   if gitlab_nginx_listen_port %}
+{% if gitlab_nginx_listen_port %}
 nginx['listen_port'] = {{ gitlab_nginx_listen_port }}
-{%   endif %}
-nginx['redirect_http_to_https'] = {{ gitlab_nginx_redirect_http_to_https | string | lower }}
-nginx['listen_https'] = {{ gitlab_nginx_listen_https | string | lower }}
-{%   if gitlab_nginx_listen_https %}
-nginx['ssl_certificate'] = '{{ gitlab_nginx_ssl_certificate }}'
-nginx['ssl_certificate_key'] = '{{ gitlab_nginx_ssl_certificate_key }}'
-nginx['ssl_ciphers'] = '{{ gitlab_nginx_ssl_ciphers }}'
-nginx['ssl_protocols'] = '{{ gitlab_nginx_ssl_protocols }}'
-nginx['ssl_session_cache'] = '{{ gitlab_nginx_ssl_session_cache }}'
-nginx['ssl_session_timeout'] = '{{ gitlab_nginx_ssl_session_timeout }}'
-{%   endif %}
-{%   if gitlab_nginx_listen_addresses %}
-nginx['listen_addresses'] = ['{{ gitlab_nginx_listen_addresses | join("', '") }}']
-{%   endif %}
 {% endif %}
+nginx['listen_https'] = {{ gitlab_nginx_listen_https | string | lower }}
+
+{% if gitlab_registry_listen_port %}
+registry_nginx['listen_port'] = {{ gitlab_registry_listen_port }}
+{% endif %}
+registry_nginx['listen_https'] = {{ gitlab_registry_listen_https }}

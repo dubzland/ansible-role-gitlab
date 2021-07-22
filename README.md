@@ -17,161 +17,75 @@ Ansible 2.2 or higher.
 Available variables are listed below, along with their default values (see
     `defaults/main.yml` for more info):
 
-### dubzland_gitlab_edition
-
+### General configuration
 ```yaml
-dubzland_gitlab_edition: 'gitlab-ee'
+gitlab_edition: gitlab-ee
+gitlab_version: ""
+gitlab_configuration_template: "etc/gitlab/gitlab.rbj2"
+gitlab_domain: "gitlab"
+gitlab_time_zone: "UTC"
+gitlab_default_theme: 127
 ```
 
-Edition of GitLab to install (ee/ce).
-
-### dubzland_gitlab_version
-
+### Email configuration
 ```yaml
-dubzland_gitlab_version: "13.1.4"
+gitlab_email_enabled: false
+gitlab_email_from: "gitlab@{{ gitlab_domain }}"
+gitlab_email_display_name: "Gitlab"
+gitlab_email_reply_to: "gitlab@{{ gitlab_domain }}"
 ```
 
-Specific version of GitLab to install.
-
-### dubzland_gitlab_configuration_template
-
+### Nginx configuration
 ```yaml
-dubzland_gitlab_configuration_template: 'etc/gitlab/gitlab.rb.j2'
+gitlab_nginx_enable: true
+gitlab_nginx_listen_port: ''
+gitlab_nginx_listen_https: true
+gitlab_nginx_redirect_http_to_https: true
+gitlab_nginx_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
+gitlab_nginx_create_self_signed_cert: true
+gitlab_nginx_self_signed_cert_subject: "/C=US/ST=Mississippi/L=Hernando/O=IT/CN={{ gitlab_domain }}"
+gitlab_nginx_ssl_ciphers: "ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256"
+gitlab_nginx_ssl_protocols: "TLSv1.2 TLSv1.3"
+gitlab_nginx_ssl_session_cache: "builtin:1000  shared:SSL:10"
+gitlab_nginx_ssl_session_timeout: "5m"
+gitlab_nginx_ssl_dhparam: "/etc/gitlab/ssl/dhparams.pem"
+gitlab_nginx_listen_addresses: ""
 ```
 
-Template used to generate `/etc/gitlab/gitlab.rb`.  Override if you need more
-customization than the variables provided.
-
-### dubzland_gitlab_external_url
-
+### SMTP configuration
 ```yaml
-dubzland_gitlab_external_url: 'https://gitlab/'
+gitlab_smtp_enabled: false
+gitlab_smtp_address: "smtp-server"
+gitlab_smtp_port: 465
+gitlab_smtp_user_name: "smtp user"
+gitlab_smtp_password: "smtppassword"
+gitlab_smtp_domain: "{{ gitlab_domain }}"
+gitlab_smtp_authentication: "login"
+gitlab_smtp_enable_starttls_auto: true
+gitlab_smtp_tls: false
+gitlab_smtp_openssl_verify_mode: "none"
+gitlab_smtp_ca_path: "/etc/ssl/certs"
+gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 ```
 
-URL on which GitLab will be reachable.
-
-### dubzland_gitlab_time_zone
-
+### Backup configuration
 ```yaml
-dubzland_gitlab_time_zone: 'UTC'
+gitlab_backups_enabled: true
+gitlab_manage_backup_path: true
+gitlab_backup_path: /var/opt/gitlab/backups
+gitlab_backup_archive_permissions: 0644
+gitlab_backup_pg_schema: 'public'
+gitlab_backup_keep_time: 604800
 ```
 
-Default time zone used for dates in GitLab.
-
-### dubzland_gitlab_email_enabled
-
+### Registry configuration
 ```yaml
-dubzland_gitalb_email_enabled: "false"
+gitlab_registry_enabled: true
+gitlab_registry_external_url: ""
+gitlab_registry_listen_port: ""
+gitlab_registry_listen_https: false
 ```
-
-Should GitLab generate emails? (must be a string).
-
-### dubzland_gitlab_email_from
-
-```yaml
-dubzland_gitlab_email_from: 'gitlab@example.com'
-```
-
-Source email address used by GitLab for outgoing emails.
-
-### dubzland_gitlab_email_display_name
-
-```yaml
-dubzland_gitlab_email_display_name: 'GitLab'
-```
-
-Human readable name to use for outgoing emails.
-
-### dubzland_gitlab_email_reply_to
-
-```yaml
-dubzland_gitlab_email_reply_to: 'gitlab@example.com'
-```
-
-Reply-to email address used in outgoing emails.
-
-### dubzland_gitlab_default_theme
-
-```yaml
-dubzland_gitlab_default_theme: 1
-```
-
-Theme used as the default for new users.
-
-### dubzland_gitlab_nginx_redirect_http_to_https
-
-```yaml
-dubzland_gitlab_nginx_redirect_http_to_https: "true"
-```
-
-Should GitLab redirect `http://` traffic to `https://`? (must be a string)
-
-### dubzland_gitlab_nginx_ssl_certificate/dubzland_gitlab_nginx_ssl_certificate_key
-
-```yaml
-dubzland_gitlab_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-dubzland_gitlab_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
-```
-
-SSL Certificate/key to use for `https://` traffic.
-
-### dubzland_gitlab_nginx_ssl_protocols
-
-```yaml
-dubzland_gitlab_nginx_ssl_protocols: "TLSv1.1 TLSv1.2"
-```
-
-TLS versions NGINX should support.
-
-### dubzland_gitlab_nginx_listen_port
-
-```yaml
-# dubzland_gitlab_nginx_listen_port: 80
-```
-
-Override the port GitLab's nginx server will listen on.
-
-### dubzland_gitlab_nginx_listen_https
-
-```yaml
-# dubzland_gitlab_nginx_listen_https: "false"
-```
-
-Should GitLab accept `https://` connections?  Set this to "false" if you have
-another reverse proxy handling TLS termination.
-
-### dubzland_gitlab_create_self_signed_cert
-
-```yaml
-dubzland_gitlab_create_self_signed_cert: "true"
-```
-
-Whether or not a self-signed certificate should be generated.  If `true`, the
-certificate/key specified above will be generated.
-
-### dubzland_gitlab_self_signed_cert_subject
-
-```yaml
-dubzland_gitlab_self_signed_cert_subject: "/C=US/ST=Mississippi/L=Hernaneo/O=Tech/CN=gitlab"
-```
-
-Subject to use when generating a self-signed certificate.
-
-### dubzland_gitlab_backups_enabled
-
-```yaml
-dubzland_gitlab_backups_enabled: True
-```
-
-Whether the daily backup job should be enabled.
-
-### dubzland_gitlab_backup_keep_time
-
-```yaml
-dubzland_gitlab_backup_keep_time: 604800
-```
-
-Time (in seconds) to retain backups (7 days).
 
 ## Dependencies
 

@@ -1,3 +1,4 @@
 ---
-# yamllint disable-line rule:line-length
-dubzland_gitlab_download_url: "https://packages.gitlab.com/gitlab/gitlab-ee/packages/{{ ansible_distribution }}/{{ ansible_distribution_release }}/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb/download.deb"
+gitlab_external_url: "https://{{ gitlab_domain }}"
+
+gitlab_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/gitlab/{{ gitlab_edition }}/script.deb.sh"

@@ -10,6 +10,14 @@ lint: |
 platforms:
   - name: "${MOLECULE_PLATFORM:-debian-stretch}"
     image: "jdubz/docker-ci-${MOLECULE_IMAGE:-debian:stretch-slim}"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    privileged: true
     pre_build_image: true
 provisioner:
   name: ansible

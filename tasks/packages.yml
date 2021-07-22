@@ -1,7 +1,7 @@
 ---
 - name: ensure GitLab dependencies are installed
   package:
-    name: "{{ dubzland_gitlab_prerequisites }}"
+    name: "{{ gitlab_prerequisites }}"
     state: present
 
 - when: ansible_os_family == 'Debian'
@@ -11,14 +11,26 @@
         path: /usr/bin/gitlab-ctl
       register: gitlab_exec
 
-    - name: ensure the correct package is downloaded
+    - name: ensure the repository installation script exists
       get_url:
-        url: "{{ dubzland_gitlab_download_url }}"
-        dest: /tmp/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb
+        url: "{{ gitlab_repository_installation_script_url }}"
+        dest: /tmp/install_gitlab_repository.sh
       when: not gitlab_exec.stat.exists
 
-    - name: ensure GitLab is installed
-      apt:
-        deb: "/tmp/gitlab-ee_{{ dubzland_gitlab_version }}-ee.0_amd64.deb"
+    - name: ensure the Gitlab repository is installed
+      command: bash /tmp/install_gitlab_repository.sh
       when: not gitlab_exec.stat.exists
-      notify: start GitLab omnibus
+
+    - name: ensure the Gitlab package name is defined
+      set_fact:
+        gitlab_package_name: "{{ gitlab_edition }}={{ gitlab_version }}-{{ gitlab_edition | split('-') | last }}.0"
+      when: gitlab_version | default(false)
+
+    - name: ensure the correct Gitlab package is installed
+      package:
+        name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+        state: present
+      async: 300
+      poll: 5
+      when: not gitlab_exec.stat.exists
+      notify: reconfigure Gitlab

@@ -1,5 +1,5 @@
 ---
-dubzland_gitlab_prerequisites:
+gitlab_prerequisites:
   - postfix
   - curl
   - ca-certificates
