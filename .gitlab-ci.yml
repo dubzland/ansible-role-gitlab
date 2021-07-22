@@ -15,6 +15,7 @@ services:
     paths:
       - .tox
   script:
+    - asdf install
     - tox
 
 debian9:

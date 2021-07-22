@@ -30,7 +30,7 @@
     owner: root
     group: root
     mode: 0600
-  notify: reconfigure GitLab
+  notify: reconfigure Gitlab
 
 - name: ensure daily backups are configured
   template:
