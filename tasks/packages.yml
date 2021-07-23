@@ -23,7 +23,7 @@
 
     - name: ensure the Gitlab package name is defined
       set_fact:
-        gitlab_package_name: "{{ gitlab_edition }}={{ gitlab_version }}-{{ gitlab_edition | split('-') | last }}.0"
+        gitlab_package_name: "{{ gitlab_edition }}={{ gitlab_version }}-{{ gitlab_edition.split('-') | last }}.0"
       when: gitlab_version | default(false)
 
     - name: ensure the correct Gitlab package is installed

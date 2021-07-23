@@ -55,8 +55,10 @@ gitlab_backup_keep_time: 604800
 
 # Registry configuration
 gitlab_registry_enabled: true
-gitlab_registry_external_url: ""
 gitlab_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
+gitlab_registry_external_url: ""
+gitlab_registry_host: ""
+gitlab_registry_port: ""
 gitlab_registry_nginx_enabled: true
 gitlab_registry_nginx_listen_port: ""
 gitlab_registry_nginx_listen_https: true
