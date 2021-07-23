@@ -3,6 +3,7 @@ gitlab_edition: gitlab-ee
 gitlab_version: ""
 gitlab_configuration_template: "etc/gitlab/gitlab.rb.j2"
 gitlab_domain: gitlab
+gitlab_external_url: "https://{{ gitlab_domain }}"
 
 # General Rails/Gitlab configuration
 gitlab_time_zone: 'UTC'
@@ -47,7 +48,7 @@ gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 # Backup configuration
 gitlab_backups_enabled: true
 gitlab_manage_backup_path: true
-gitlab_backup_path: /var/opt/gitlab/backups
+gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_backup_archive_permissions: 0644
 gitlab_backup_pg_schema: 'public'
 gitlab_backup_keep_time: 604800
@@ -55,5 +56,7 @@ gitlab_backup_keep_time: 604800
 # Registry configuration
 gitlab_registry_enabled: true
 gitlab_registry_external_url: ""
-gitlab_registry_listen_port: ""
-gitlab_registry_listen_https: false
+gitlab_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
+gitlab_registry_nginx_enabled: true
+gitlab_registry_nginx_listen_port: ""
+gitlab_registry_nginx_listen_https: true

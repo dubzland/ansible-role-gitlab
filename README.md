@@ -24,7 +24,8 @@ gitlab_version: ""
 gitlab_configuration_template: "etc/gitlab/gitlab.rbj2"
 gitlab_domain: "gitlab"
 gitlab_time_zone: "UTC"
-gitlab_default_theme: 127
+gitlab_default_theme: 1
+gitlab_external_url: "https://{{ gitlab_domain }}"
 ```
 
 ### Email configuration
