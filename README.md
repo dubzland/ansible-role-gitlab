@@ -38,7 +38,7 @@ gitlab_email_reply_to: "gitlab@{{ gitlab_domain }}"
 
 ### Nginx configuration
 ```yaml
-gitlab_nginx_enable: true
+gitlab_nginx_enabled: true
 gitlab_nginx_listen_port: ''
 gitlab_nginx_listen_https: true
 gitlab_nginx_redirect_http_to_https: true
@@ -52,6 +52,9 @@ gitlab_nginx_ssl_session_cache: "builtin:1000  shared:SSL:10"
 gitlab_nginx_ssl_session_timeout: "5m"
 gitlab_nginx_ssl_dhparam: "/etc/gitlab/ssl/dhparams.pem"
 gitlab_nginx_listen_addresses: ""
+gitlab_nginx_real_ip_trusted_addresses: []
+gitlab_nginx_real_ip_header: 'X-Forwarded-For'
+gitlab_nginx_real_ip_recursive: true
 ```
 
 ### SMTP configuration
@@ -83,9 +86,13 @@ gitlab_backup_keep_time: 604800
 ### Registry configuration
 ```yaml
 gitlab_registry_enabled: true
+gitlab_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
 gitlab_registry_external_url: ""
-gitlab_registry_listen_port: ""
-gitlab_registry_listen_https: false
+gitlab_registry_host: ""
+gitlab_registry_port: ""
+gitlab_registry_nginx_enabled: true
+gitlab_registry_nginx_listen_port: ""
+gitlab_registry_nginx_listen_https: true
 ```
 
 ## Dependencies

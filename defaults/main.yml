@@ -6,7 +6,7 @@ gitlab_domain: gitlab
 gitlab_external_url: "https://{{ gitlab_domain }}"
 
 # General Rails/Gitlab configuration
-gitlab_time_zone: 'UTC'
+gitlab_time_zone: "UTC"
 gitlab_default_theme: 1
 
 # Email configuration
