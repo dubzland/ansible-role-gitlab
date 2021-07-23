@@ -6,8 +6,8 @@ gitlab_rails['time_zone'] = '{{ gitlab_time_zone }}'
 gitlab_rails['gitlab_default_theme'] = {{ gitlab_default_theme }}
 
 {{ 'Nginx configuration' | comment }}
-nginx['enable'] = {{ gitlab_nginx_enable | string | lower }}
-{% if gitlab_nginx_enable %}
+nginx['enable'] = {{ gitlab_nginx_enabled | string | lower }}
+{% if gitlab_nginx_enabled %}
 {%   if gitlab_nginx_listen_port %}
 nginx['listen_port'] = {{ gitlab_nginx_listen_port }}
 {%   endif %}
@@ -24,6 +24,11 @@ nginx['ssl_session_timeout'] = '{{ gitlab_nginx_ssl_session_timeout }}'
 {%   if gitlab_nginx_listen_addresses %}
 nginx['listen_addresses'] = ['{{ gitlab_nginx_listen_addresses | join("', '") }}']
 {%   endif %}
+{%   if gitlab_nginx_real_ip_trusted_addresses %}
+nginx['real_ip_trusted_addresses'] = ['{{ gitlab_nginx_real_ip_trusted_addresses | join("', '") }}']
+{%   endif %}
+nginx['real_ip_header'] = '{{ gitlab_nginx_real_ip_header }}'
+nginx['real_ip_recursive'] = '{{ (gitlab_nginx_real_ip_recursive == true) | ternary('on', 'off') }}'
 {% endif %}
 
 {{ 'Email configuration' | comment }}
